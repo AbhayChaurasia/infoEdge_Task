@@ -1,0 +1,13 @@
+													Task One
+
+Project 1: Aisle has millions of users from over 150 countries. Each user gets 10 free daily
+
+Likes. Unused Likes are not carried forward to the next day. We must refresh the number of daily Likes at 12:00 pm according to the user's local time.
+ 
+How would you go about doing this in a scalable way? No need to write code, simply explain
+
+to us in theory the backend logic in your own words.
+
+
+
+Answer : --- When User Login the app ,we just pass the user timezone(user region) , and from the backend we just checked 12pm is passed or not , if passed so To refresh 10 daily Likes at 12:00 PM local time for millions of users across different time zones, a scalable approach is to use the user's local timezone and perform a lazy refresh. When a user signs up or logs in, the iOS app captures their current timezone using Swift’s TimeZone.current.identifier and sends it to the backend. This timezone is saved with the user’s profile. Then, every time the user performs a relevant action (like tapping the “Like” button), the backend checks whether it is past 12:00 PM in the user's local time and whether a new day has started since the last refresh. If both conditions are met, the backend resets the user's Likes to 10 and updates the last refreshed time to today’s 12:00 PM in their local timezone. This ensures that each user gets their Likes refreshed individually based on their local time, rather than relying on a global reset. This lazy, on-demand refresh model is highly scalable and efficient, as it eliminates the need for running a centralized cron job or batch script to refresh Likes for all users simultaneously. It also reduces server load and keeps the logic accurate across timezones, supporting millions of users globally.
